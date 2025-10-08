@@ -4,8 +4,10 @@ import pandas as pd
 import os
 from Model.interval import Interval
 from datetime import date
-from dotenv import load_dotenv
-load_dotenv()
+
+# For dev only, will crash prod
+# from dotenv import load_dotenv
+# load_dotenv()
 
 class MarketingService():
     def __init__(self):
