@@ -94,9 +94,30 @@ class MarketingService():
                 pass
 
         return df
+    
+    def get_top_donateurs(self, start: date, end: date, top: int):
+        start_str = start.isoformat()
+        end_str = end.isoformat()
+        query = f"""
+        SELECT *
+        FROM REGLEMENTTIERS
+        WHERE TO_DATE(DATEREGLEMENT, 'YYYYMMDD') 
+            BETWEEN TO_DATE('{start_str}', 'YYYY-MM-DD') AND TO_DATE('{end_str}', 'YYYY-MM-DD')
+        ORDER BY TO_NUMBER(MONTANTREGLEMENT) DESC
+        LIMIT {top} 
+        """
+        self.cur.execute(query)
+        rows = self.cur.fetchall()
+        col_names = [desc[0] for desc in self.cur.description]
+        df = pd.DataFrame(rows, columns=col_names)
+        return df
 
 ms = MarketingService()
 
 @st.cache_data(ttl=60*60)
 def cache_get_reglement_regulier(interval: Interval, start: date, end: date, agg: bool):
     return ms.get_reglement_regulier(interval, start, end, agg)
+
+@st.cache_data(ttl=60*60)
+def cache_get_top_donateurs(start: date, end: date, top: int):
+    return ms.get_top_donateurs(start, end, top)

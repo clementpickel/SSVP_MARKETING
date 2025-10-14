@@ -25,19 +25,13 @@ def select_settings_bar_chart_ponctuel():
         max_value=date.today()
     )
     agg = False # st.checkbox("Agréger", value=False)
-    table = st.checkbox("Montrer la table", value=False)
-    return interval, start, end, agg, table
+    return interval, start, end, agg
 
-def display_bar_chart_ponctuel(interval: Interval, df: pd.DataFrame, table: bool):
+def display_bar_chart_ponctuel(interval: Interval, df: pd.DataFrame):
     if df.empty:
         st.warning("No data available for this interval.")
     else:
         df.columns = [col.capitalize() for col in df.columns]
-
-        # --- Display Table ---
-        if table:
-            st.subheader(f"💰 Reglement Ponctuel ({interval.value.capitalize()})")
-            st.dataframe(df, width='stretch')
 
         # --- Display Chart ---
         if "Total_montantreglement" in df.columns:
@@ -48,6 +42,5 @@ def display_bar_chart_ponctuel(interval: Interval, df: pd.DataFrame, table: bool
                 data=df,
                 x=interval_col,
                 y="Total_montantreglement",
-                width='stretch'
             )
 
