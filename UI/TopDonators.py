@@ -1,7 +1,8 @@
 import streamlit as st
-import pandas as pd
 from datetime import date
 from dateutil.relativedelta import relativedelta
+import pandas as pd
+from pandas.tseries.offsets import DateOffset
 
 def settings_top_donator():
     st.subheader("Paramètres")
@@ -26,3 +27,7 @@ def display_top_donators(df):
     st.subheader("💰 Top donateurs")
     df = df[["IDREGLEMENTTIERS", "MONTANTREGLEMENT", "IDDEVISE", "IDINDIVIDUCOLLECTEUR"]]
     st.dataframe(df)
+
+
+
+
