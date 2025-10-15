@@ -115,10 +115,9 @@ class MarketingService():
     def get_top_donateurs_regulier(self, start: date, end: date, top: int):
         start_str = start.isoformat()
         end_str = end.isoformat()
-        query = f"""
+        query = """
         SELECT * 
         FROM REGLEMENTREGULIER
-
         """
         # WHERE TO_DATE(DATEDEMANDE, 'YYYYMMDD') BETWEEN 
         # TO_DATE('{start_str}', 'YYYY-MM-DD') AND TO_DATE('{end_str}', 'YYYY-MM-DD')

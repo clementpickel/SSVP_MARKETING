@@ -18,10 +18,10 @@ with col2:
     df = cache_get_reglement_regulier(interval, start, end, agg)
     display_bar_chart_ponctuel(interval, df)
     
-col1, col2 = st.columns([1, 9])
-with col1:
-    start, end, limit = settings_top_donator()
+col1, col2 = st.columns([9, 1])
 with col2:
+    start, end, limit = settings_top_donator()
+with col1:
     top_donateur_df = cache_get_top_donateurs(start, end, limit)
     display_top_donators(top_donateur_df)
 

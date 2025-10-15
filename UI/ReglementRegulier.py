@@ -2,13 +2,6 @@ import streamlit as st
 from datetime import date
 from dateutil.relativedelta import relativedelta
 import pandas as pd
-from pandas.tseries.offsets import DateOffset
-
-
-import pandas as pd
-import numpy as np
-from datetime import datetime
-from dateutil.relativedelta import relativedelta
 
 def calculer_prelevements_mensuels(df, start: date, end: date):
     """
@@ -91,7 +84,7 @@ def settings_reglement_regulier():
     st.subheader("Paramètres")
     start = st.date_input(
         "Début",
-        value=date.today() - relativedelta(years=1),
+        value=date.today() - relativedelta(years=5),
         min_value=date(2000, 1, 1),
         max_value=date.today(),
         key=2
@@ -108,7 +101,7 @@ def settings_reglement_regulier():
 def display_reglement_regulier(df, start, end):
     st.subheader("🗓️ Don régulier")
     month_df = calculer_prelevements_mensuels(df, start, end)
-    st.dataframe(month_df)
+    # st.dataframe(month_df)
     st.bar_chart(
         data=month_df,
         x="mois",
