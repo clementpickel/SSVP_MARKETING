@@ -84,7 +84,7 @@ def settings_reglement_regulier():
     st.subheader("Paramètres")
     start = st.date_input(
         "Début",
-        value=date.today() - relativedelta(years=5),
+        value=date.today() - relativedelta(years=1),
         min_value=date(2000, 1, 1),
         max_value=date.today(),
         key=2

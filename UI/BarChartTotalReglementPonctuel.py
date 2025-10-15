@@ -2,6 +2,7 @@ import streamlit as st
 import pandas as pd
 from datetime import date
 from Model.interval import Interval
+from dateutil.relativedelta import relativedelta
 
 def select_settings_bar_chart_ponctuel():
     st.subheader("Paramètres")
@@ -13,7 +14,7 @@ def select_settings_bar_chart_ponctuel():
     )
     start = st.date_input(
         "Début",
-        value=date(2020, 1, 1),
+        value=date.today() - relativedelta(years=1),
         min_value=date(2000, 1, 1),   # earliest allowed date
         max_value=date.today()         # latest allowed date
     )
@@ -36,11 +37,10 @@ def display_bar_chart_ponctuel(interval: Interval, df: pd.DataFrame):
         # --- Display Chart ---
         if "Total_montantreglement" in df.columns:
             # Find which column is the interval dimension
-            interval_col = "Period"
             st.subheader(f"📈 Montant Total par {interval.value.capitalize()}")
             st.bar_chart(
                 data=df,
-                x=interval_col,
+                x="Period",
                 y="Total_montantreglement",
             )
 
